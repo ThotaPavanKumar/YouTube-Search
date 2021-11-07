@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>youtube</title>
+    <style>
+        #result {
+            display: grid;
+            grid-template-columns: repeat(4,20%);
+            gap: 3%;
+            justify-content: space-evenly;
+            background-color: #f4f4f4;
+        }
+        #navBar {
+            /* border: 5px solid green; */
+            height: 98px;
+            width: 100%;
+        }
+        #youtube {
+            width: 7%;
+            vertical-align: top;
+            margin-top: 21px;
+        }
+        #hamburger {
+            width: 3%;
+            border: none;   
+            margin-top: 25px; 
+            margin-right: 21px;     
+        }
+        #search {
+            width: 40%;
+            height: 40px;
+            vertical-align: top;
+            margin-top: 21px;
+            margin-left: 100px;
+            font-size: 18px;
+        }
+        #btn {
+            width: 2%;
+            border: 1px solid #f4f4f4;
+            vertical-align: top;
+            margin-top: 20px;
+            padding: 10px;
+            margin-right: 10px;
+            margin-left: -4px;
+            background-color: #f4f4f4;
+        }
+        #mic {
+            width: 2%;
+            border: 1px solid white;
+            border-radius: 50%;
+            padding: 10px;
+            background-color: #f4f4f4;
+            vertical-align: top;
+            margin-top: 21px;
+            margin-right: 100px;
+        }
+        #video,#grid,#bell {
+            width: 3%;
+            vertical-align: top;
+            margin-top: 21px;
+            margin-right: 50px;
+        }
+        #dot {
+            width: 3%;
+            vertical-align: top;
+            margin-top: 21px;
+            margin-right: 70px;
+        }
+        #signin {
+            color: #387fdd;
+            border: 1px solid #387fdd;
+            padding: 1%;
+            background-color: white;
+            vertical-align: top;
+            margin-top: 21px;
+        }
+    </style>
+    
+</head>
+<body>
+    <div id="navBar">
+        <img id="hamburger" src="https://cdn-icons.flaticon.com/png/512/2791/premium/2791777.png?token=exp=1636249811~hmac=3f7a283fbd4fff514a4632455d6502cc" alt="">
+        <img id="youtube" src="https://logos-world.net/wp-content/uploads/2020/04/YouTube-Logo.png" alt="">
+        <input type="text" name="" id="search" placeholder="Search">
+        <!-- <button onclick="search()">search</button> -->
+        <img onclick="search()" src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-2.png" alt="" id="btn">
+        <img id="mic" src="https://cdn.icon-icons.com/icons2/2066/PNG/512/mic_icon_125214.png" alt="">    
+        <!-- <img id="video" src="https://cdn-icons.flaticon.com/png/512/5249/premium/5249537.png?token=exp=1636248945~hmac=ee03bed48dda491f074e211f99cff085" alt=""> -->
+        <img id="grid" src="https://cdn-icons.flaticon.com/png/512/2486/premium/2486225.png?token=exp=1636249294~hmac=76565ea691777cefea5a36abef9c9160" alt="">
+        <!-- <img id="bell" src="https://cdn-icons-png.flaticon.com/128/2097/2097743.png" alt=""> -->
+        <img id="dot" src="https://cdn-icons.flaticon.com/png/512/2354/premium/2354554.png?token=exp=1636250142~hmac=9e8edfa4c368cb95a1687ca2206f9e24" alt="">
+        <button id="signin">SIGN IN</button>
+
+    </div>
+    <!-- <h1>youtube</h1> -->
+    <!-- <input type="text" name="" id="search" placeholder="search for a movie"> -->
+    <!-- <button onclick="search()">search</button> -->
+
+    <div id="result"></div>
+
+</body>
+</html>
+<script>
+
+        // AIzaSyDpZPeB-tT23U8rozTXPCU5KXOcHZeKTpE
+
+       //https://console.cloud.google.com/apis/api/youtube.googleapis.com/credentials?project=youtube-clone-331314&supportedpurview=project
+
+        // https://developers.google.com/youtube/v3
+
+        // GET https://youtube.googleapis.com/youtube/v3/search?maxResults=10&q=string&type=video&key=AIzaSyDpZPeB-tT23U8rozTXPCU5KXOcHZeKTpE
+
+
+        let outerDiv = document.getElementById("result");
+
+        async function search() {
+            var query = document.getElementById("search").value;
+            console.log(query);
+            var res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?maxResults=35&q=${query}&type=video&key=AIzaSyDpZPeB-tT23U8rozTXPCU5KXOcHZeKTpE`);
+
+            var data = await res.json();
+
+            console.log(data);
+
+            appendData(data.items);
+        }
+
+        function appendData(videos) {
+            outerDiv.innerHTML = "";
+
+            console.log(videos);
+
+            videos.forEach(({id: {videoId}} ) => {
+
+                console.log(videoId);
+
+                let innerDiv = document.createElement("div");
+
+                innerDiv.innerHTML = `<iframe width="260" height="215" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+
+                innerDiv.style.marginTop = "20px";
+
+                outerDiv.append(innerDiv);
+
+            });
+
+        }
+
+</script>
