@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTube Most Popular Videos</title>
+    <style>
+      #youtube {
+        width: 7%;
+        vertical-align: top;
+        margin-top: 21px;
+      }
+      #hamburger {
+        width: 3%;
+        border: none;
+        margin-top: 25px;
+        margin-right: 21px;
+      }
+      #search {
+        width: 40%;
+        height: 40px;
+        vertical-align: top;
+        margin-top: 21px;
+        margin-left: 100px;
+        font-size: 18px;
+      }
+      #btn {
+        width: 2%;
+        border: 1px solid #f4f4f4;
+        vertical-align: top;
+        margin-top: 20px;
+        padding: 10px;
+        margin-right: 10px;
+        margin-left: -4px;
+        background-color: #f4f4f4;
+      }
+      #mic {
+        width: 2%;
+        border: 1px solid white;
+        border-radius: 50%;
+        padding: 10px;
+        background-color: #f4f4f4;
+        vertical-align: top;
+        margin-top: 21px;
+        margin-right: 100px;
+      }
+      #video,
+      #grid,
+      #bell {
+        width: 2%;
+        vertical-align: top;
+        margin-top: 26px;
+        margin-right: 19px;
+      }
+      #signin {
+        color: #387fdd;
+        border: 1px solid #387fdd;
+        padding: 1%;
+        background-color: white;
+        vertical-align: top;
+        margin-top: 21px;
+      }
+      #navBar {
+        border: 5px solid green;
+        /* position: fixed;   */
+        height: 98px;
+        width: 100%;
+        /* margin-bottom: 100px; */
+      }
+
+      #display {
+        display: grid;
+        grid-template-columns: 10% 87%;
+        gap: 2%;
+        /* position: fixed;   */
+        /* overflow: hidden; */
+        /* margin-top: 150px; */
+        /* border: 5px solid yellow; */
+        /* background-color: tomato; */
+      }
+      #home,
+      #subscriptions,
+      #explore,
+      #library {
+        width: 30%;
+      }
+
+      #result {
+        display: grid;
+        grid-template-columns: repeat(4, 20%);
+        gap: 4px;
+        justify-content: space-evenly;
+        background-color: #f4f4f4;
+        padding-bottom: 10px;
+        /* height: 1200px; */
+      }
+      #sign-in {
+        position: relative;
+        top: -60px;
+        left: 92%;
+        /* margin-top: -58px; */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="navBar">
+      <img
+        id="hamburger"
+        src="https://cdn-icons.flaticon.com/png/128/2791/premium/2791777.png?token=exp=1636300441~hmac=810d903d62a96f03477d3c1e81b95134"
+        alt=""
+      />
+      <img
+        id="youtube"
+        src="https://logos-world.net/wp-content/uploads/2020/04/YouTube-Logo.png"
+        alt=""
+      />
+      <input type="text" name="" id="search" placeholder="Search" />
+      <img
+        onclick="search()"
+        src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-2.png"
+        alt=""
+        id="btn"
+      />
+      <img
+        id="mic"
+        src="https://cdn.icon-icons.com/icons2/2066/PNG/512/mic_icon_125214.png"
+        alt=""
+      />
+      <img
+        id="video"
+        src="https://cdn-icons.flaticon.com/png/512/5249/premium/5249537.png?token=exp=1636248945~hmac=ee03bed48dda491f074e211f99cff085"
+        alt=""
+      />
+      <img
+        id="grid"
+        src="https://cdn-icons-png.flaticon.com/512/847/847455.png"
+        alt=""
+      />
+      <img
+        id="bell"
+        src="https://cdn-icons-png.flaticon.com/128/2097/2097743.png"
+        alt=""
+      />
+     <a href="signup.html"><button id="signin">SIGN IN</button></a>
+      <!-- <button id="signin">SIGN IN</button> -->
+      <h3 id="sign-in"></h3>
+    </div>
+    <div id="display">
+      <div id="left-icons" class="hide">
+        <img
+          id="home"
+          src="https://cdn-icons-png.flaticon.com/512/1946/1946436.png"
+          alt=""
+        />
+        <div>Home</div>
+        <img
+          id="explore"
+          src="https://cdn-icons-png.flaticon.com/512/565/565504.png"
+          alt=""
+        />
+        <div>Explore</div>
+        <img
+          id="subscriptions"
+          src="https://cdn-icons.flaticon.com/png/128/4146/premium/4146817.png?token=exp=1636300556~hmac=47c1056eed66264ea4601673e682892c"
+          alt=""
+        />
+        <div>Subscriptions</div>
+        <img
+          id="library"
+          src="https://cdn-icons.flaticon.com/png/128/2989/premium/2989835.png?token=exp=1636300556~hmac=0e4af85a9289adc900c1c958f5fc65f2"
+          alt=""
+        />
+        <div>Library</div>
+      </div>
+      <div id="result"></div>
+    </div>
+  </body>
+</html>
+<script>
+  //   let data = JSON.parse(localStorage.getItem("youtubecart"));
+  //   console.log("data", data[0]);
+
+  var data = JSON.parse(window.localStorage.getItem("youtubecart"));
+
+  document.getElementById("sign-in").innerHTML = data;
+  if( data != null) {
+    document.getElementById("signin").style.display = "none";
+  }
+  
+
+  // AIzaSyDpZPeB-tT23U8rozTXPCU5KXOcHZeKTpE
+
+  //https://console.cloud.google.com/apis/api/youtube.googleapis.com/credentials?project=youtube-clone-331314&supportedpurview=project
+
+  // https://developers.google.com/youtube/v3
+
+  // GET https://youtube.googleapis.com/youtube/v3/search?maxResults=10&q=string&type=video&key=AIzaSyDpZPeB-tT23U8rozTXPCU5KXOcHZeKTpE
+
+  // GET https://youtube.googleapis.com/youtube/v3/search?maxResults=40&q=popular%20videos%20in%20india&type=videos&key=AIzaSyDpZPeB-tT23U8rozTXPCU5KXOcHZeKTpE
+
+  // api key AIzaSyBf-JK0LJdSX3V9dbzPg7ZIXl1010YTt90
+  popular();
+
+  async function popular() {
+    console.log(123);
+    var res = await fetch(
+      `https://youtube.googleapis.com/youtube/v3/search?q=popular%20videos%20in%20india&type=video&key=AIzaSyDpZPeB-tT23U8rozTXPCU5KXOcHZeKTpE&maxResults=25`
+    );
+
+    // https://youtube.googleapis.com/youtube/v3/search?q=popular%20videos%20in%20india&type=video&key=AIzaSyAf5cgnddJfxHSGE_Mm0_f0yuN319YU8Io&maxResults=20'
+
+    var data = await res.json();
+
+    console.log(data);
+
+    appendData(data.items);
+  }
+
+  let outerDiv = document.getElementById("result");
+
+  async function search() {
+    var query = document.getElementById("search").value;
+    console.log(query);
+    var res = await fetch(
+      `https://youtube.googleapis.com/youtube/v3/search?maxResults=35&q=${query}&type=video&key=AIzaSyDpZPeB-tT23U8rozTXPCU5KXOcHZeKTpE`
+    );
+
+    // var res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?maxResults=35&q=${query}&type=video&key=AIzaSyAf5cgnddJfxHSGE_Mm0_f0yuN319YU8Io`);
+
+    var data = await res.json();
+
+    console.log(data);
+
+    appendData(data.items);
+  }
+
+  function appendData(videos) {
+    outerDiv.innerHTML = "";
+
+    console.log(videos);
+
+    videos.forEach(({ id: { videoId } }) => {
+      console.log(videoId);
+
+      let innerDiv = document.createElement("div");
+
+      innerDiv.innerHTML = `<iframe width="230" height="215" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+
+      innerDiv.style.marginTop = "20px";
+
+      outerDiv.append(innerDiv);
+    });
+  }
+</script>
